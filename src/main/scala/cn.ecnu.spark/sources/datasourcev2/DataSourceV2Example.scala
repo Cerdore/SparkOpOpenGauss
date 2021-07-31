@@ -13,27 +13,37 @@ object DataSourceV2Example {
       .appName("example")
       .getOrCreate()
 
-//    val simpleDf = sparkSession.read
-//      .format("cn.ecnu.spark.sources.datasourcev2.simple")
-//      .load()
+    val simpleDf = sparkSession.read
+      .format("cn.ecnu.spark.sources.datasourcev2.simple")
+      .load()
+
+    simpleDf.show()
+    println(
+      "number of partitions in simple source is " + simpleDf.rdd.getNumPartitions)
+
+
 //
-//    simpleDf.show()
-//    println(
-//      "number of partitions in simple source is " + simpleDf.rdd.getNumPartitions)
+//    val simpleMysqlDf = sparkSession.createDataFrame(Seq(
+//      Tuple1("5"),
+//      Tuple1("7")
+//    )).toDF("product_no")
+//
+//    //write examples
+//    simpleMysqlDf.write
+//      .format(
+//        "cn.ecnu.spark.sources.datasourcev2.simpleopenGausswriter")
+//      .mode(SaveMode.Append)
+//      .save()
 
+//    val OpenGaussDf = sparkSession.read
+//      .format("cn.ecnu.spark.sources.datasourcev2.opengausssource")
+//      .option("url", postgresServer.jdbcUrl)
+//      .option("user", postgresServer.username)
+//      .option("password", postgresServer.password)
+//      .option("tableName", testTableName)
+//      .load()
+//    OpenGaussDf.show()
 
-
-    val simpleMysqlDf = sparkSession.createDataFrame(Seq(
-      Tuple1("5"),
-      Tuple1("7")
-    )).toDF("product_no")
-
-    //write examples
-    simpleMysqlDf.write
-      .format(
-        "cn.ecnu.spark.sources.datasourcev2.simpleopenGausswriter")
-      .mode(SaveMode.Append)
-      .save()
 
    /* simpleMysqlDf.write
       .format(
